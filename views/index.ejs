@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Jobfeed app</title>
+
+
+    <link href="stylesheets/bootstrap.min.css" rel="stylesheet">
+    <link href="stylesheets/ie10-viewport-bug-workaround.css" rel="stylesheet">
+    <link href="stylesheets/toastr.min.css" rel="stylesheet">
+    <link href="stylesheets/index.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+
+    <div class="container">
+
+      <form class="form-info">
+        <h2 class="form-info-heading">auto-scraper</h2>
+
+        <p>URL which leads to a list of jobs.</p>
+        <label for="inputIndex" class="sr-only">Job Index URL</label>
+        <input type="index" id="inputIndex" class="form-control" placeholder="example.com/jobs/" required>
+
+
+        <p>URL which leads to a page of one of the jobs listed on the index page.</p>
+        <label for="inputExample" class="sr-only">Job Example 1 URL</label>
+        <input type="example" id="inputExample" class="form-control" placeholder="example.com/jobs/vacancy-1" required>
+
+        <p>URL which leads to the second page of the job list (leave empty if not applicable)</p>
+        <label for="inputNext" class="sr-only">Jobs Index Page Next Button URL</label>
+        <input type="next" id="inputNext" class="form-control" placeholder="example.com/jobs-2/" required>
+
+        <button class="btn btn-lg btn-primary btn-block" type="button" id="submitButton" onclick="submitClicked()">Submit</button>
+      </form>
+
+      <ul class="list-group" id="vacancyList"></ul>
+
+    </div>
+
+    <script src="javascripts/jquery-3.1.0.min.js"></script>
+    <script src="javascripts/ie10-viewport-bug-workaround.js"></script>
+    <script src="javascripts/socket.io.js"></script>
+    <script src="javascripts/bootstrap.min.js"></script>
+    <script src="javascripts/toastr.min.js"></script>
+    <script src="javascripts/index.js"></script>
+  </body>
+</html>

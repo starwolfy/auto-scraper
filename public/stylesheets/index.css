@@ -1,0 +1,46 @@
+body {
+  padding-top: 40px;
+  padding-bottom: 40px;
+  background-color: #eee;
+}
+
+.form-info {
+  max-width: 330px;
+  padding: 15px;
+  margin: 0 auto;
+}
+.form-info .form-info-heading,
+.form-info .checkbox {
+  margin-bottom: 10px;
+}
+.form-info .checkbox {
+  font-weight: normal;
+}
+.form-info .form-control {
+  position: relative;
+  height: auto;
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+  padding: 10px;
+  font-size: 16px;
+}
+.form-info .form-control:focus {
+  z-index: 2;
+}
+
+p {
+  margin-top: 15px;
+}
+
+#submitButton {
+  margin-top: 15px;
+}
+
+.progress {
+  margin-top: 125px;
+}
+
+#vacancyList {
+  margin-top: 60px;
+}
