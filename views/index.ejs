@@ -38,11 +38,20 @@
 
         <p>URL which leads to the second page of the job list (leave empty if not applicable)</p>
         <label for="inputNext" class="sr-only">Jobs Index Page Next Button URL</label>
-        <input type="next" id="inputNext" class="form-control" placeholder="example.com/jobs-2/" required>
+        <input type="next" id="inputNext" class="form-control" placeholder="example.com/jobs-2/">
+        
+        <p>Amount of seconds to wait between each HTTP request. (default = 3)</p>
+        <label for="inputInterval" class="sr-only">Interval</label>
+        <input type="next" id="inputInterval" class="form-control" placeholder="3">
+        
+        <p>Amount of HTTP requests. (default = 10)</p>
+        <label for="inputRequestAmount" class="sr-only">Request Amount</label>
+        <input type="next" id="inputRequestAmount" class="form-control" placeholder="10">
 
         <button class="btn btn-lg btn-primary btn-block" type="button" id="submitButton" onclick="submitClicked()">Submit</button>
       </form>
 
+      <div id="spinner"></div>
       <ul class="list-group" id="vacancyList"></ul>
 
     </div>
@@ -52,6 +61,7 @@
     <script src="javascripts/socket.io.js"></script>
     <script src="javascripts/bootstrap.min.js"></script>
     <script src="javascripts/toastr.min.js"></script>
+    <script src="javascripts/spin.min.js"></script>
     <script src="javascripts/index.js"></script>
   </body>
 </html>
