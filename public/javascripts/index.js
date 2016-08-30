@@ -1,7 +1,12 @@
 var socket = io.connect();
+new Clipboard('#copyButton');
+var firstTime = true;
+var spinner = "";
 
 $(document).ready(function(){
     $('[data-toggle="tooltip"]').tooltip();
+    $('#clearButton').hide();
+    $('#copyButton').hide();
 });
 
 function submitClicked() {
@@ -11,8 +16,7 @@ function submitClicked() {
         next = document.getElementById("inputNext").value,
         interval = document.getElementById("inputInterval").value,
         requestVal = document.getElementById("inputRequestAmount").value;
-
-
+        
     if (index == "" || example == "") {
 
         toastr.options = {
@@ -69,6 +73,8 @@ function submitClicked() {
             toastr["warning"](msg.error, "Something went wrong:");
 
             document.getElementById("vacancyList").innerHTML = "";
+            ('#clearButton').hide();
+            $('#copyButton').hide();
 
         } else {
 
@@ -92,58 +98,83 @@ function submitClicked() {
 
             toastr["success"]("...", "Success!");
 
+            document.getElementById("copyButton").setAttribute("data-clipboard-text", "");
             document.getElementById("vacancyList").innerHTML = "";
-            document.getElementById("vacancyList").innerHTML += "<li class='list-group-item active'>Vacancy Selector: " + msg.data.selector + "</li>"
-            document.getElementById("vacancyList").innerHTML += "<li class='list-group-item active'>Navigation Selector: " + msg.data.nextSelector + "</li>"
-            document.getElementById("vacancyList").innerHTML += "<li class='list-group-item active' id='amounts'>Vacancies: " + msg.data.vacs + ", pages: 1</li>"
+            document.getElementById("vacancyList").innerHTML += "<li class='list-group-item active'>Vacancy Selector: " + msg.data.selector + "</li>";
+            document.getElementById("vacancyList").innerHTML += "<li class='list-group-item active'>Navigation Selector: " + msg.data.nextSelector + "</li>";
+            document.getElementById("vacancyList").innerHTML += "<li class='list-group-item active' id='amounts'>Vacancies: " + msg.data.vacs + ", pages: 1</li>";
 
             for (var i=0; i<msg.data.links.length;i++) {
-                document.getElementById("vacancyList").innerHTML += "<li class='list-group-item'>" + msg.data.links[i] + "</li>";
+                document.getElementById("vacancyList").innerHTML += "<li class='list-group-item'><a href='" + msg.data.links[i] + "' target='_blank'>" + msg.data.links[i] + "</a></li>"
+                var currentAttr = document.getElementById("copyButton").getAttribute("data-clipboard-text");
+                document.getElementById("copyButton").setAttribute("data-clipboard-text", currentAttr + msg.data.links[i] + "\n");
             }
 
             if (msg.data.more) {
                 
                 var opts = {
-                lines: 13 // The number of lines to draw
-                , length: 13 // The length of each line
-                , width: 12 // The line thickness
-                , radius: 25 // The radius of the inner circle
-                , scale: 0.25 // Scales overall size of the spinner
-                , corners: 1 // Corner roundness (0..1)
-                , color: '#000' // #rgb or #rrggbb or array of colors
-                , opacity: 0.15 // Opacity of the lines
-                , rotate: 0 // The rotation offset
-                , direction: 1 // 1: clockwise, -1: counterclockwise
-                , speed: 0.5 // Rounds per second
-                , trail: 60 // Afterglow percentage
-                , fps: 20 // Frames per second when using setTimeout() as a fallback for CSS
-                , zIndex: 2e9 // The z-index (defaults to 2000000000)
-                , className: 'spinner' // The CSS class to assign to the spinner
-                , top: '50%' // Top position relative to parent
-                , left: '50%' // Left position relative to parent
-                , shadow: false // Whether to render a shadow
-                , hwaccel: false // Whether to use hardware acceleration
-                , position: 'relative' // Element positioning
+                lines: 13
+                , length: 13 
+                , width: 12
+                , radius: 25
+                , scale: 0.25
+                , corners: 1
+                , color: '#000'
+                , opacity: 0.15
+                , rotate: 0
+                , direction: 1
+                , speed: 0.5
+                , trail: 60
+                , fps: 20
+                , zIndex: 2e9
+                , className: 'spinner'
+                , top: '50%'
+                , left: '50%'
+                , shadow: false
+                , hwaccel: false
+                , position: 'relative'
                 }
-                var target = document.getElementById('spinner')
-                var spinner = new Spinner(opts).spin(target);
+                
+                if (firstTime) {
+                    var target = document.getElementById('spinner')
+                    spinner = new Spinner(opts).spin(target);
+                } else {
+                    var target = document.getElementById('spinner')
+                    spinner.spin(target);
+                }
+                
+                
+                firstTime = false;
 
                 socket.on('moreData', function(data) {
                     document.getElementById("amounts").innerHTML = "Vacancies: " + data.totalVacs + ", pages: " + data.totalPages;
                     for (var i=0; i<data.vacs.length;i++) {
-                        document.getElementById("vacancyList").innerHTML += "<li class='list-group-item'>" + data.vacs[i] + "</li>"
+                        document.getElementById("vacancyList").innerHTML += "<li class='list-group-item'><a href='" + data.vacs[i] + "' target='_blank'>" + data.vacs[i] + "</a></li>"
+                        var currentAttr = document.getElementById("copyButton").getAttribute("data-clipboard-text");
+                        document.getElementById("copyButton").setAttribute("data-clipboard-text", currentAttr + data.vacs[i] + "\n");
                     }
                 });
                 
                 socket.on('endData', function() {
                     
-                    document.getElementById("spinner").outerHTML = "";
+                    spinner.stop();
+                    $('#clearButton').show();
+                    $('#copyButton').show();
                     
                 });
+            } else {
+                $('#clearButton').show();
+                $('#copyButton').show();
             }
 
         }
 
     });
 
+}
+
+function clearClicked() {
+    $('#clearButton').hide();
+    $('#copyButton').hide();
+    document.getElementById("vacancyList").innerHTML = "";
 }

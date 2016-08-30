@@ -49,6 +49,8 @@
         <input type="next" id="inputRequestAmount" class="form-control" placeholder="10">
 
         <button class="btn btn-lg btn-primary btn-block" type="button" id="submitButton" onclick="submitClicked()">Submit</button>
+        <button class="btn btn-lg btn-default btn-block" type="button" id="copyButton" data-clipboard-text="" data-clipboard-action="copy">Copy to clipboard</button>
+        <button class="btn btn-lg btn-danger btn-block" type="button" id="clearButton" onclick="clearClicked()">Clear Vacancies</button>
       </form>
 
       <div id="spinner"></div>
@@ -62,6 +64,7 @@
     <script src="javascripts/bootstrap.min.js"></script>
     <script src="javascripts/toastr.min.js"></script>
     <script src="javascripts/spin.min.js"></script>
+    <script src="javascripts/clipboard.min.js"></script>
     <script src="javascripts/index.js"></script>
   </body>
 </html>
