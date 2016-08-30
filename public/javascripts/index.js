@@ -2,7 +2,6 @@ var socket = io.connect();
 new Clipboard('#copyButton');
 var firstTime = true;
 var spinner = "";
-
 $(document).ready(function(){
     $('[data-toggle="tooltip"]').tooltip();
     $('#clearButton').hide();
@@ -10,12 +9,15 @@ $(document).ready(function(){
 });
 
 function submitClicked() {
+    
+    document.getElementById("vacancyList").innerHTML = "";
 
-    var index = document.getElementById("inputIndex").value,
+    var index = document.getElementById("inputIndex").value;
         example = document.getElementById("inputExample").value,
         next = document.getElementById("inputNext").value,
         interval = document.getElementById("inputInterval").value,
-        requestVal = document.getElementById("inputRequestAmount").value;
+        requestVal = document.getElementById("inputRequestAmount").value,
+        strictScraping = document.getElementById("strictScrapingCheck").checked;
         
     if (index == "" || example == "") {
 
@@ -47,7 +49,8 @@ function submitClicked() {
         inputExample: example,
         inputNext: next,
         inputInterval: interval,
-        inputRequestVal: requestVal
+        inputRequestVal: requestVal,
+        inputStrictScraping: strictScraping
     }, function(msg) {
 
         if (msg.error != null) {

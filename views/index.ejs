@@ -27,9 +27,11 @@
       <form class="form-info">
         <h2 class="form-info-heading">auto-scraper</h2>
 
-        <p>URL which leads to a list of jobs.</p>
-        <label for="inputIndex" class="sr-only">Job Index URL</label>
-        <input type="index" id="inputIndex" class="form-control" placeholder="example.com/jobs/" required>
+        <div id="indexInputs">
+            <p>URL which leads to a list of jobs.</p>
+            <label for="inputIndex" class="sr-only">Job Index URL</label>
+            <input type="index" id="inputIndex" class="form-control" placeholder="example.com/jobs/" required>
+        </div>
 
 
         <p>URL which leads to a page of one of the jobs listed on the index page.</p>
@@ -47,6 +49,15 @@
         <p>Amount of HTTP requests. (default = 10)</p>
         <label for="inputRequestAmount" class="sr-only">Request Amount</label>
         <input type="next" id="inputRequestAmount" class="form-control" placeholder="10">
+        
+        <div class="has-warning">
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" id="strictScrapingCheck" value="option1" checked>
+                    Enable strict scraping
+                </label>
+            </div>
+        </div>
 
         <button class="btn btn-lg btn-primary btn-block" type="button" id="submitButton" onclick="submitClicked()">Submit</button>
         <button class="btn btn-lg btn-default btn-block" type="button" id="copyButton" data-clipboard-text="" data-clipboard-action="copy">Copy to clipboard</button>
